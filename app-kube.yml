@@ -31,6 +31,6 @@ spec:
     spec:
       containers:
       - name: my-flask-app
-        image: akapula/my-flask-app:$BUILD_NUMBER
+        image: akapula/my-flask-app:18
         ports:
         - containerPort: 8080
