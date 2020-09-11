@@ -6,7 +6,7 @@ spec:
   type: LoadBalancer
   selector:
     app: my-flask-app
-  ports:
-  - protocol: TCP
+    ports:
+    - protocol: TCP
     port: 30080
     targetPort: 5000
