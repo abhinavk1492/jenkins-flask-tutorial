@@ -10,27 +10,3 @@ spec:
   - protocol: TCP
     port: 30080
     targetPort: 5000
-
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: my-flask-app-deployment
-  labels:
-    app: my-flask-app
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: my-flask-app
-  template:
-    metadata:
-      labels:
-        app: my-flask-app
-    spec:
-      containers:
-      - name: my-flask-app
-        image: $DOCKER_IMAGE_NAME:$BUILD_NUMBER
-        ports:
-        - containerPort: 5000
