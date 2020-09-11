@@ -1,15 +1,15 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: my-flask-app-service
+  name: train-schedule-service
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
-    app: my-flask-app
-    ports:
-    - protocol: TCP
-    port: 30080
-    targetPort: 5000
+    app: train-schedule
+  ports:
+  - protocol: TCP
+    port: 5000
+    nodePort: 5000
     
 ---
 
