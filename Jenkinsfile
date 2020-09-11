@@ -2,7 +2,7 @@ pipeline {
   environment {
     registry = "akapula/my-flask-app"
     registryCredential = 'dockerhub_id'
-    DOCKER_IMAGE_NAME = ''
+    DOCKER_IMAGE_NAME = "akapula/my-flask-app" + ":$BUILD_NUMBER"
   }
   agent any
   stages {
