@@ -9,8 +9,8 @@ spec:
   ports:
   - protocol: TCP
     port: 5000
-    targetPort: 5000
-    
+    targetPort: 8080
+    nodePort: 8080    
 ---
 
 apiVersion: apps/v1
