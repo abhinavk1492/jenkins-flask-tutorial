@@ -7,9 +7,10 @@ spec:
   selector:
     app: my-flask-app
   ports:
-  - protocol: TCP
+  - nodePort: 32223
     port: 5000
-    nodePort: 8080    
+    protocol: TCP
+    targetPort: 5000   
 ---
 
 apiVersion: apps/v1
