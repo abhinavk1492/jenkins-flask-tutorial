@@ -41,7 +41,7 @@ pipeline {
         milestone(1)
         //implement Kubernetes deployment here
         kubernetesDeploy(
-        kubeconfigId: 'kubeconfig', configs: 'my-flask-app-kube.yml', enableConfigSubstitution: true)
+        kubeconfigId: 'mykubeconfig2', configs: 'my-flask-app-kube.yml', enableConfigSubstitution: true)
       }
     }
 
