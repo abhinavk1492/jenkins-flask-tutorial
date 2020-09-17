@@ -34,11 +34,14 @@ pipeline {
     }
     stage('DeployToProduction') {
       steps {
-        input 'Deploy to Production?'
-        milestone(1)
+        withKubeConfig([credentialsId: 'gkesecret', serverUrl: 'https://104.196.96.190']) {
+          sh 'kubectl get pods'
+        }
+        //input 'Deploy to Production?'
+        //milestone(1)
         //implement Kubernetes deployment here
-        kubernetesDeploy(
-        kubeconfigId: 'gkeconfig', configs: 'my-flask-app-kube.yml', enableConfigSubstitution: true)
+        //kubernetesDeploy(
+        //kubeconfigId: 'gkeconfig', configs: 'my-flask-app-kube.yml', enableConfigSubstitution: true)
       }
     }
 
