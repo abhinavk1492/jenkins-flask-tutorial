@@ -56,7 +56,7 @@ pipeline {
                         image: nginx
                         ports:
                         - containerPort: 80
-                EOF
+                  EOF
              '''
           //sh 'kubectl delete po my-flask'
           //sh 'kubectl create deploy my-flask-deploy --image=$DOCKER_IMAGE_NAME:$BUILD_NUMBER --replicas=3'
