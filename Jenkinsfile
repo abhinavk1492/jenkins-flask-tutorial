@@ -35,7 +35,12 @@ pipeline {
     stage('DeployToProduction') {
       steps {
         withKubeConfig([credentialsId: 'gkesecret', serverUrl: 'https://104.196.96.190', namespace: 'cloudbees-core']) {
-          sh 'kubectl run my-flask --image=$DOCKER_IMAGE_NAME:$BUILD_NUMBER'
+          try {
+            sh 'kubectl run my-flask --image=$DOCKER_IMAGE_NAME:$BUILD_NUMBER'
+          }
+          catch {
+            sh 'kubectl get po'
+          }  
         }
         //input 'Deploy to Production?'
         //milestone(1)
