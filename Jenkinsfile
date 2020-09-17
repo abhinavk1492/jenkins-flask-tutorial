@@ -75,9 +75,9 @@ pipeline {
                   selector:
                     app: my-flask-app
                   ports:
-                  - port: 5000
+                  - port: 33333
                     protocol: TCP
-                    targetPort: 33333   
+                    targetPort: 5000   
              '''
           sh 'kubectl apply -f my-flask-app-service.yaml'
         }
