@@ -35,23 +35,7 @@ pipeline {
     stage('DeployToProduction') {
       steps {
         withKubeConfig([credentialsId: 'gkesecret', serverUrl: 'https://104.196.96.190', namespace: 'cloudbees-core']) {
-          sh '''
-                cat <<EOF > set_memory.yaml
-                apiVersion: apps/v1
-                kind: Deployment
-                metadata:
-                  name: my-nginx
-                spec:
-                  template:
-                    spec:
-                      containers:
-                      - name: my-nginx
-                        resources:
-                          limits:
-                            memory: 512Mi
-                EOF
-             '''
-          sh 'kubectl create -f set_memory.yaml'
+          sh 'kubectl create deploy my-nginx --image=nginx --replicas=3'
         }
         //input 'Deploy to Production?'
         //milestone(1)
