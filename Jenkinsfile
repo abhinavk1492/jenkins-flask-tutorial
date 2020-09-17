@@ -63,6 +63,24 @@ pipeline {
           //sh 'kubectl create deploy my-flask-deploy --image=$DOCKER_IMAGE_NAME:$BUILD_NUMBER --replicas=3'
           //sh 'cat password.txt'
           sh 'kubectl apply -f my-flask-app-deployment.yaml'
+          
+          sh '''
+                cat <<EOF >./my-flask-app-service.yaml
+                kind: Service
+                apiVersion: v1
+                metadata:
+                  name: my-flask-app-service
+                spec:
+                  type: NodePort
+                  selector:
+                    app: my-flask-app
+                  ports:
+                  - nodePort: 32223
+                    port: 5000
+                    protocol: TCP
+                    targetPort: 5000  
+             '''
+          sh 'kubectl apply -f my-flask-app-service.yaml'
         }
         //input 'Deploy to Production?'
         //milestone(1)
