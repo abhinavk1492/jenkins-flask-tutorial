@@ -71,14 +71,13 @@ pipeline {
                 metadata:
                   name: my-flask-app-service
                 spec:
-                  type: NodePort
+                  type: LoadBalancer
                   selector:
                     app: my-flask-app
                   ports:
-                  - nodePort: 32323
-                    port: 5000
+                  - port: 5000
                     protocol: TCP
-                    targetPort: 5000  
+                    targetPort: 33333   
              '''
           sh 'kubectl apply -f my-flask-app-service.yaml'
         }
