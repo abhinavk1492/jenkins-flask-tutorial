@@ -35,8 +35,9 @@ pipeline {
     stage('DeployToProduction') {
       steps {
         withKubeConfig([credentialsId: 'gkesecret', serverUrl: 'https://104.196.96.190', namespace: 'cloudbees-core']) {
-          sh 'git config --global credential.https://github.com.username abhinavk1492'
-          sh 'git clone https://github.com/abhinavk1492/jenkins-flask-tutorial.git'
+          sh 'git config user.name "ABHINAV KAPULA"'
+          sh 'git config user.email "abhinavk1492@gmail.com"'
+          sh 'git clone git@github.com:abhinavk1492/jenkins-flask-tutorial.git'
           sh 'cd jenkins-flask-tutorial'
           sh 'kubectl create -f my-flask-app-kube.yml'
         }
