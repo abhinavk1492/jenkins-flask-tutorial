@@ -38,7 +38,7 @@ pipeline {
           try {
             sh 'kubectl run my-flask --image=$DOCKER_IMAGE_NAME:$BUILD_NUMBER'
           }
-          catch {
+          catch (exc) {
             sh 'kubectl get po'
           }  
         }
