@@ -36,7 +36,7 @@ pipeline {
       steps {
         withKubeConfig([credentialsId: 'gkesecret', serverUrl: 'https://104.196.96.190', namespace: 'cloudbees-core']) {
           sh '''
-                cat <<EOF > deployment.yaml
+                cat <<EOF > | kubectl apply -f -
                 apiVersion: apps/v1
                 kind: Deployment
                 metadata:
@@ -58,7 +58,6 @@ pipeline {
                         - containerPort: 80
                 EOF
              '''
-          sh 'kubectl create -f deployment.yml'
         }
         //input 'Deploy to Production?'
         //milestone(1)
