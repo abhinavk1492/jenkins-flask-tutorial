@@ -36,8 +36,8 @@ pipeline {
       steps {
         withKubeConfig([credentialsId: 'gkesecret', serverUrl: 'https://104.196.96.190', namespace: 'cloudbees-core']) {
           
-          sh 'kubectl delete po my-flask'
-          sh 'kubectl run my-flask --image=$DOCKER_IMAGE_NAME:$BUILD_NUMBER'
+          //sh 'kubectl delete po my-flask'
+          sh 'kubectl create deploy my-flask-deploy --image=$DOCKER_IMAGE_NAME:$BUILD_NUMBER --replicas=3'
            
         }
         //input 'Deploy to Production?'
