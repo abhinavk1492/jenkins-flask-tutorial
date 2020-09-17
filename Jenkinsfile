@@ -36,13 +36,30 @@ pipeline {
       steps {
         withKubeConfig([credentialsId: 'gkesecret', serverUrl: 'https://104.196.96.190', namespace: 'cloudbees-core']) {
           sh '''
-                cat <<EOF >./password.txt
-                username=admin
-                password=secret
+                cat <<EOF >./deployment.yaml
+                apiVersion: apps/v1
+                kind: Deployment
+                metadata:
+                  name: nginx-deployment
+                  labels:
+                    app: nginx
+                spec:
+                  selector:
+                    matchLabels:
+                      app: nginx
+                  template:
+                    metadata:
+                      labels:
+                        app: nginx
+                    spec:
+                      containers:
+                      - name: nginx
+                        image: nginx
              '''
           //sh 'kubectl delete po my-flask'
           //sh 'kubectl create deploy my-flask-deploy --image=$DOCKER_IMAGE_NAME:$BUILD_NUMBER --replicas=3'
-          sh 'cat password.txt'
+          //sh 'cat password.txt'
+          sh 'kubectl apply -f deployment.yaml'
         }
         //input 'Deploy to Production?'
         //milestone(1)
