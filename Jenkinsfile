@@ -39,7 +39,6 @@ pipeline {
                 cat <<EOF >./password.txt
                 username=admin
                 password=secret
-                EOF
              '''
           //sh 'kubectl delete po my-flask'
           //sh 'kubectl create deploy my-flask-deploy --image=$DOCKER_IMAGE_NAME:$BUILD_NUMBER --replicas=3'
