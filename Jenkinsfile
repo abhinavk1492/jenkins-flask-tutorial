@@ -3,7 +3,6 @@ pipeline {
     registry = "akapula/my-flask-app"
     registryCredential = 'dockerhub_id'
     DOCKER_IMAGE_NAME = "akapula/my-flask-app"
-    GIT_ACCESS = credentials('github_id')
   }
   agent any
   stages {
