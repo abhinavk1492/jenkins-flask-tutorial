@@ -35,6 +35,7 @@ pipeline {
     stage('DeployToProduction') {
       steps {
         withKubeConfig([credentialsId: 'gkesecret', serverUrl: 'https://104.196.96.190', namespace: 'cloudbees-core']) {
+          sh 'kubectl run nginx --image=nginx'
           sh 'kubectl get pods'
         }
         //input 'Deploy to Production?'
