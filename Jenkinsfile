@@ -75,7 +75,7 @@ pipeline {
                   selector:
                     app: my-flask-app
                   ports:
-                  - port: 33333
+                  - port: 5000
                     protocol: TCP
                     targetPort: 5000   
              '''
