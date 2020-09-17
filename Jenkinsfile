@@ -3,6 +3,7 @@ pipeline {
     registry = "akapula/my-flask-app"
     registryCredential = 'dockerhub_id'
     DOCKER_IMAGE_NAME = "akapula/my-flask-app"
+    GIT_ACCESS = credentials('github_id')
   }
   agent any
   stages {
@@ -35,11 +36,30 @@ pipeline {
     stage('DeployToProduction') {
       steps {
         withKubeConfig([credentialsId: 'gkesecret', serverUrl: 'https://104.196.96.190', namespace: 'cloudbees-core']) {
-          sh 'git config user.name "ABHINAV KAPULA"'
-          sh 'git config user.email "abhinavk1492@gmail.com"'
-          sh 'git clone https://github.com/abhinavk1492/jenkins-flask-tutorial.git'
-          sh 'cd jenkins-flask-tutorial'
-          sh 'kubectl create -f my-flask-app-kube.yml'
+          sh '''
+                cat <<EOF > deployment.yaml
+                apiVersion: apps/v1
+                kind: Deployment
+                metadata:
+                  name: my-nginx
+                spec:
+                  selector:
+                    matchLabels:
+                      run: my-nginx
+                  replicas: 2
+                  template:
+                    metadata:
+                      labels:
+                        run: my-nginx
+                    spec:
+                      containers:
+                      - name: my-nginx
+                        image: nginx
+                        ports:
+                        - containerPort: 80
+                EOF
+             '''
+          sh 'kubectl create -f deployment.yml'
         }
         //input 'Deploy to Production?'
         //milestone(1)
