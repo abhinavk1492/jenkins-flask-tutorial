@@ -7,7 +7,7 @@ app.logger.setLevel(logging.INFO)
 
 @app.route('/')
 def hello_world():
-    app.logger.warning('inside hello_world method')
+    app.logger.info('inside hello_world method')
     return 'Flask Dockerized 7.0'
 
 if __name__ == '__main__':
